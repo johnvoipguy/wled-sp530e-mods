@@ -3,10 +3,22 @@ name: Build and Release SP530E
 on:
   push:
     branches: [ sp530e-mods ]
+    paths:
+      - 'platformio.ini'
+      - 'wled00/**'
+      - 'usermods/**'
+      - 'lib/**'
+      - 'include/**'
+      - 'tools/**'
+      - '.github/workflows/build-and-release.yml'
     paths-ignore:
-      - 'README.md'
+      - '**/*.md'
       - 'docs/**'
-      - '*.md'
+      - 'images/**'
+      - 'node_modules/**'
+      - '.vscode/**'
+      - '.devcontainer/**'
+      - 'test/**'
   workflow_dispatch:
 
 jobs:
