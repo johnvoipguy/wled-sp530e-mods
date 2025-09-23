@@ -20,8 +20,7 @@ jobs:
     strategy:
       matrix:
         environment:
-          - esp32c3dev_4MB_audioreactive
-          - esp32c3dev_4MB
+          - sp530e
     
     steps:
     - name: Checkout code

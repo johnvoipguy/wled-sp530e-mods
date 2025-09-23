@@ -1,0 +1,120 @@
+name: Build and Release SP530E
+
+on:
+  push:
+    branches: [ sp530e-mods ]
+    paths-ignore:
+      - 'README.md'
+      - 'docs/**'
+      - '*.md'
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+    
+    - name: Install PlatformIO
+      run: |
+        python -m pip install --upgrade pip
+        pip install --upgrade platformio
+        
+    - name: Install Node.js dependencies
+      run: npm ci
+      
+    - name: Build SP530E firmware
+      run: |
+        echo "🔨 Building SP530E firmware..."
+        pio run -e sp530e --verbose
+        
+    - name: Prepare user-friendly binaries
+      run: |
+        BUILD_DIR=".pio/build/sp530e"
+        TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+        
+        # Create builds directories
+        mkdir -p builds/latest
+        mkdir -p "builds/build_${TIMESTAMP}"
+        
+        echo "📦 Creating user-friendly firmware packages..."
+        
+        # Check what was built
+        echo "Build directory contents:"
+        ls -la "${BUILD_DIR}/" || echo "❌ Build failed - no output directory"
+        
+        if [ -d "${BUILD_DIR}" ]; then
+          # 1. Full firmware (bootloader + partitions + app merged)
+          if [ -f "${BUILD_DIR}/firmware.bin" ]; then
+            echo "✅ Found firmware.bin"
+            
+            # Try to create merged firmware
+            if [ -f "${BUILD_DIR}/bootloader.bin" ] && [ -f "${BUILD_DIR}/partitions.bin" ]; then
+              echo "🔗 Creating merged firmware..."
+              python -m esptool merge_bin -o "builds/latest/WLED_SP530E_Full_Latest.bin" \
+                --flash_mode dio --flash_freq 40m --flash_size 4MB \
+                0x0000 "${BUILD_DIR}/bootloader.bin" \
+                0x8000 "${BUILD_DIR}/partitions.bin" \
+                0x10000 "${BUILD_DIR}/firmware.bin"
+            else
+              echo "⚠️ Using firmware.bin as full image"
+              cp "${BUILD_DIR}/firmware.bin" "builds/latest/WLED_SP530E_Full_Latest.bin"
+            fi
+            
+            # 2. App-only for OTA
+            cp "${BUILD_DIR}/firmware.bin" "builds/latest/WLED_SP530E_App_Latest.bin"
+            
+            # 3. Individual components
+            [ -f "${BUILD_DIR}/bootloader.bin" ] && cp "${BUILD_DIR}/bootloader.bin" "builds/latest/Bootloader.bin"
+            [ -f "${BUILD_DIR}/partitions.bin" ] && cp "${BUILD_DIR}/partitions.bin" "builds/latest/Partitions.bin"
+            cp "${BUILD_DIR}/firmware.bin" "builds/latest/App.bin"
+            
+            # 4. Timestamped backup
+            cp -r builds/latest/* "builds/build_${TIMESTAMP}/"
+            
+            echo "✅ Created firmware packages:"
+            ls -lh builds/latest/
+            
+            # 5. Update build info
+            cat > "builds/latest/BUILD_INFO.txt" << EOF
+SP530E WLED Firmware Build
+==========================
+Built: $(date)
+Commit: ${GITHUB_SHA}
+Branch: ${GITHUB_REF_NAME}
+
+FILES:
+$(ls -lh builds/latest/)
+
+USAGE:
+- First flash: Use WLED_SP530E_Full_Latest.bin at 0x0000
+- OTA updates: Use WLED_SP530E_App_Latest.bin via web interface
+EOF
+          
+          else
+            echo "❌ No firmware.bin found in build directory"
+          fi
+        fi
+        
+    - name: Commit binaries to repository
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add builds/
+        
+        if git diff --staged --quiet; then
+          echo "No changes to commit"
+        else
+          git commit -m "Auto-update SP530E binaries [skip ci]"
+          git push
+          echo "✅ Binaries updated in repository!"
+        fi

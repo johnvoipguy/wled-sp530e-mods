@@ -14,11 +14,13 @@
 
 **Need firmware for your modified SP530E?** 
 
-👉 **[Download Latest Release](https://github.com/johnvoipguy/wled-sp530e-mods/releases)** 👈
+👉 **[📁 Easy Download - builds/latest/](./builds/latest/)** 👈
 
-Choose:
-- **AudioReactive**: Full featured with sound-reactive lighting
-- **Standard**: Basic LED control without audio features
+**Ready-to-flash firmware** (no hunting through artifacts!):
+- **[WLED_SP530E_Full_Latest.bin](./builds/latest/WLED_SP530E_Full_Latest.bin)** - Complete firmware (UART flash)  
+- **[WLED_SP530E_App_Latest.bin](./builds/latest/WLED_SP530E_App_Latest.bin)** - OTA updates only
+
+📦 **[All builds and versions →](./builds/)**
 
 ## ⚠️ Important Notice
 
