@@ -32,7 +32,7 @@ Here are some brief instructions for soldering the connections required to conne
 - **UART access via soldering** for initial firmware flashing
 - **Required modifications**:
   - Solder connections to UART pins (TX, RX, GND, 3.3V)
-  - Access to GPIO0 for boot mode (optional for easier flashing)
+  - Access to GPIO9 for booting into boot mode for initial flashing.
   - No chip replacement needed - uses stock ESP32-C3
 
 ## 📋 Features
