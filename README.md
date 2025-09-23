@@ -33,6 +33,7 @@
 - **Boot Status LED**: Visual indication of boot process and system status
 - **WiFi Status LED**: Real-time WiFi connection status indicator
 - **Audio Reactive**: Enhanced audio processing for ESP32-C3
+- **PWM RGBW**
 
 ### ESP32-C3 Optimizations
 - **4MB Flash Support**: Optimized memory layout for ESP32-C3
