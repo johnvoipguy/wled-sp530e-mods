@@ -63,7 +63,7 @@ Here are some brief instructions for soldering the connections required to conne
 ### Option 1: Download Pre-built Binaries
 
 1. Go to the [Releases](https://github.com/johnvoipguy/wled-sp530e-mods/releases) page
-2. Download the latest `WLED_SP530E_esp32c3dev_4MB_audioreactive_*.bin`
+2. Download the latest `WLED_SP530E_Full_Latest.bin`
 3. Flash using your preferred method (see [Flashing Instructions](#-flashing-instructions))
 
 ### Option 2: Download from Actions (Latest Builds)
@@ -125,22 +125,18 @@ Once initially flashed via UART, **OTA updates are the preferred method** for fi
 - **LED Count**: Set according to your strip length
 - **Color Order**: Typically GRB for most WS2812B strips
 
-### Audio Reactive Setup (if using audioreactive build)
+### Audio Reactive Setup
 1. Go to Settings → Sound Reactive
 2. Configure microphone input (GPIO settings pre-configured)
 3. Adjust sensitivity and gain as needed
 
 ## 📁 Available Builds
 
-### `esp32c3dev_4MB_audioreactive`
-- **Full featured** build with audio reactive capabilities
-- **Recommended** for most users
-- Includes all custom user modules
-
-### `esp32c3dev_4MB`
-- **Standard** build without audio reactive features
-- **Smaller size** for basic LED control
-- Good for simple installations
+### `sp530e` (Recommended)
+- **Audio Reactive**: Full audio processing with microphone support
+- **4MB Flash**: Extended features and effects  
+- **SP530E Optimized**: Hardware-specific GPIO configuration
+- **Performance Tuned**: Optimized for ESP32-C3 architecture
 
 ## 🔧 Development
 
@@ -154,8 +150,8 @@ cd wled-sp530e-mods
 npm install
 pip install -r requirements.txt
 
-# Build firmware
-platformio run -e esp32c3dev_4MB_audioreactive
+# Build the firmware  
+platformio run -e sp530e
 ```
 
 ### Custom Modifications
