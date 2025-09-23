@@ -22,10 +22,6 @@
 
 📦 **[All builds and versions →](./builds/)**
 
-## ⚠️ Important Notice
-
-Here are some brief instructions for soldering the connections required to connect to a USB UART. I will add the pictures later.
-
 ## 🔧 Hardware Requirements
 
 - **Stock SP530E LED Controller** (ESP32-C3 based)
