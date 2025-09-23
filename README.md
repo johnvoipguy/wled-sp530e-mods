@@ -89,6 +89,12 @@ You can test connectivity by running
 ```bash
 esptool.py chip-id
 ```
+If chip-id doesn't work, you might try different bauds -b 460800 or -b 115200.
+
+Then copy original flash
+```bash
+esptool -p PORT -b 460800 read-flash 0 ALL ESP530E-Orig.bin
+```
 
 ### Prerequisites
 - **ESPTool** or **ESP Flash Download Tool**
@@ -103,7 +109,7 @@ pip install esptool
 
 # Put SP530E in download mode (connect GPIO0 to GND during power-on)
 # Flash the firmware via UART (replace COM_PORT with your UART adapter port)
-esptool.py --chip esp32c3 --port COM_PORT write_flash 0x0000 WLED_SP530E_*.bin
+esptool.py -b 460800 --chip esp32c3 --port COM_PORT write_flash 0x0000 WLED_SP530E_*.bin
 ```
 
 ### Using ESP Flash Download Tool (GUI)
