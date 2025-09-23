@@ -72,9 +72,17 @@ Here are some brief instructions for soldering the connections required to conne
 
 ## 💾 Flashing Instructions
 
+### UART Wiring for SP530E
+You need to solder wires to these points on the SP530E board:
+- **TX** → UART RX
+- **RX** → UART TX  
+- **GND** → UART GND
+- **3.3V** → UART VCC (or use external 3.3V supply)
+- **GPIO9** → GND during power up (to enable access to bootloader for flashing)
+
 ### Prerequisites
 - **ESPTool** or **ESP Flash Download Tool**
-- **USB connection** to your modified SP530E controller
+- **USB UART adapter** connected to SP530E as shown above
 
 ### Using ESPTool (Command Line)
 ```bash
@@ -199,5 +207,3 @@ This project maintains the same license as WLED. See the original [WLED LICENSE]
 See [CHANGELOG.md](CHANGELOG.md) for detailed version history and updates.
 
 ---
-
-**⚠️ Reminder: This firmware is specifically for hardware-modified SP530E controllers with ESP32-C3 chips. Ensure your hardware modifications are complete before flashing!**
