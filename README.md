@@ -22,7 +22,7 @@ Choose:
 
 ## ⚠️ Important Notice
 
-**This firmware is ONLY for SP530E controllers that have been physically modified to use ESP32-C3 chips.** Do not flash this to unmodified SP530E controllers - it will not work and may cause damage.
+Here are some brief instructions for soldering the connections required to connect to a USB UART. I will add the pictures later.
 
 ## 🔧 Hardware Requirements
 
@@ -42,7 +42,18 @@ Choose:
 
 ### ESP32-C3 Optimizations
 - **4MB Flash Support**: Optimized memory layout for ESP32-C3
-- **GPIO Mapping**: Correct pin assignments for modified SP530E hardware
+- **GPIO Mapping**: Correct pin assignments for SP530E hardware
+  - **On Board Button**: GPIO 8
+  - **On Board Mic**: GPIO 3
+  - **On Board Blue LED**: GPIO 0 (Inverted)
+  - **On Board Green LED**: GPIO 1 (Inverted)
+  - **LED Data Output**: GPIO 19
+  - **Analog Pins**:
+    - R: GPIO 10
+    - G: GPIO 7
+    - B: GPIO 6
+    - WW: GPIO 5
+    - CW: GPIO 4
 - **Performance Tuning**: ESP32-C3 specific optimizations
 
 ## 🚀 Quick Start
@@ -81,7 +92,7 @@ You need to solder wires to these points on the SP530E board:
 - **RX** → UART TX  
 - **GND** → UART GND
 - **3.3V** → UART VCC (or use external 3.3V supply)
-- **GPIO0** → GND (for download mode, release after flashing starts)
+- **GPIO9** → GND during power up (to enable access to bootloader for flashing)
 
 ### Using ESP Flash Download Tool (GUI)
 1. Download [ESP Flash Download Tool](https://www.espressif.com/en/support/download/other-tools)
@@ -89,8 +100,15 @@ You need to solder wires to these points on the SP530E board:
 3. Load the `.bin` file at address `0x0000`
 4. Connect and flash
 
-### Using Web Installer
-*Coming soon - web-based installer for easier flashing*
+### Over-The-Air (OTA) Updates
+Once initially flashed via UART, **OTA updates are the preferred method** for firmware updates:
+
+1. **Connect to your SP530E** via web interface
+2. **Go to Settings** → Update  
+3. **Upload new firmware** (.bin file from releases)
+4. **Automatic reboot** with new firmware
+
+**Note**: OTA updates only include the APP partition (not bootloader or partition table), making them faster and safer for routine updates.
 
 ## 🛠️ Configuration
 
