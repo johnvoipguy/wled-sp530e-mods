@@ -1,9 +1,5 @@
 # 🎯 WLED for SP530E Controllers (With ESP32-C3 SoC)
 
-[![Build SP530E Binaries](https://github.com/johnvoipguy/wled-sp530e-mods/actions/workflows/build-sp530e.yml/badge.svg)](https://github.com/johnvoipguy/wled-sp530e-mods/actions/workflows/build-sp530e.yml)
-
-## 🚨 **WLED for SP530E Controllers** 🚨
-
 **This repository contains WLED modifications specifically optimized for SP530E LED controllers with ESP32-C3 chips.** 
 
 ⚠️ **CAUTION: Requires modification by soldering connections to use UART for flashing this firmware** ⚠️
