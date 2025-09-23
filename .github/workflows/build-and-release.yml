@@ -85,20 +85,18 @@ jobs:
             ls -lh builds/latest/
             
             # 5. Update build info
-            cat > "builds/latest/BUILD_INFO.txt" << EOF
-SP530E WLED Firmware Build
-==========================
-Built: $(date)
-Commit: ${GITHUB_SHA}
-Branch: ${GITHUB_REF_NAME}
-
-FILES:
-$(ls -lh builds/latest/)
-
-USAGE:
-- First flash: Use WLED_SP530E_Full_Latest.bin at 0x0000
-- OTA updates: Use WLED_SP530E_App_Latest.bin via web interface
-EOF
+            echo "SP530E WLED Firmware Build" > "builds/latest/BUILD_INFO.txt"
+            echo "==========================" >> "builds/latest/BUILD_INFO.txt"
+            echo "Built: $(date)" >> "builds/latest/BUILD_INFO.txt"
+            echo "Commit: ${GITHUB_SHA}" >> "builds/latest/BUILD_INFO.txt"
+            echo "Branch: ${GITHUB_REF_NAME}" >> "builds/latest/BUILD_INFO.txt"
+            echo "" >> "builds/latest/BUILD_INFO.txt"
+            echo "FILES:" >> "builds/latest/BUILD_INFO.txt"
+            ls -lh builds/latest/ >> "builds/latest/BUILD_INFO.txt"
+            echo "" >> "builds/latest/BUILD_INFO.txt"
+            echo "USAGE:" >> "builds/latest/BUILD_INFO.txt"
+            echo "- First flash: Use WLED_SP530E_Full_Latest.bin at 0x0000" >> "builds/latest/BUILD_INFO.txt"
+            echo "- OTA updates: Use WLED_SP530E_App_Latest.bin via web interface" >> "builds/latest/BUILD_INFO.txt"
           
           else
             echo "❌ No firmware.bin found in build directory"
