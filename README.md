@@ -80,20 +80,30 @@ You need to solder wires to these points on the SP530E board:
 - **RX** → UART TX  
 - **GND** → UART GND
 - **3.3V** → UART VCC (or use external 3.3V supply)
-- $\color{blue}{GPIO9 → GND }$ **During power up!** (to enable access to bootloader for flashing)
-
+- When performing a firmware upload do not connect the device to AC but use the power supply provided by your (FTDI type) serial interface.
+- $\color{blue}{GPIO9 → GND }$
+  
 <img src="https://github.com/johnvoipguy/wled-sp530e-mods/blob/sp530e-mods/images/Front_lights.jpg" width="285" height="245">  <img src="https://github.com/johnvoipguy/wled-sp530e-mods/blob/sp530e-mods/images/back_no_wiring.jpg" width="324" height="324">
+
+**Put the device in firmware upload mode by $\color{blue}{grounding \space pin \space GPIO9}$ while applying power.**
 
 <img src="https://github.com/johnvoipguy/wled-sp530e-mods/blob/sp530e-mods/images/back_wiring.jpg" width="250" height="250"> <img src="https://github.com/johnvoipguy/wled-sp530e-mods/blob/sp530e-mods/images/Back_wiring_2.jpg" width="250" height="250">
  <img src="https://github.com/johnvoipguy/wled-sp530e-mods/blob/sp530e-mods/images/uart_connection.jpg" width="250" height="250">
  
-**You'll know you did correctly, if after connecting power and removing GPIO9 from GRND if there are no lights on the front**
+**You'll know you did correctly, if after applying power and removing GPIO9 from GRND if there are no lights on the front**
+You can test connectivity by running 
+
+```bash
+esptool.py chip-id
+```
 
 ### Prerequisites
 - **ESPTool** or **ESP Flash Download Tool**
 - **USB UART adapter** connected to SP530E as shown above
 
 ### Using ESPTool (Command Line)
+- If you don't have or don't want to use Python you can find an ESPTool for Windows https://github.com/espressif/esptool/releases -> https://github.com/espressif/esptool/releases/download/v5.1.0/esptool-v5.1.0-windows-amd64.zip. 
+- **USB UART adapter** connected to SP530E as shown above
 ```bash
 # Install esptool if not already installed
 pip install esptool
