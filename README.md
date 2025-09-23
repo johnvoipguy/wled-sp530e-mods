@@ -1,4 +1,4 @@
-# 🎯 WLED for SP530E Controllers (ESP32-C3 Modified Hardware)
+# 🎯 WLED for SP530E Controllers (With ESP32-C3 SoC)
 
 [![Build SP530E Binaries](https://github.com/johnvoipguy/wled-sp530e-mods/actions/workflows/build-sp530e.yml/badge.svg)](https://github.com/johnvoipguy/wled-sp530e-mods/actions/workflows/build-sp530e.yml)
 
