@@ -2,11 +2,11 @@
 
 [![Build SP530E Binaries](https://github.com/johnvoipguy/wled-sp530e-mods/actions/workflows/build-sp530e.yml/badge.svg)](https://github.com/johnvoipguy/wled-sp530e-mods/actions/workflows/build-sp530e.yml)
 
-## 🚨 **THIS IS NOT REGULAR WLED** 🚨
+## 🚨 **WLED for SP530E Controllers** 🚨
 
-**This repository contains WLED modifications specifically for SP530E LED controllers that have been physically modified with ESP32-C3 chips.** 
+**This repository contains WLED modifications specifically optimized for SP530E LED controllers with ESP32-C3 chips.** 
 
-⚠️ **DO NOT USE ON STOCK SP530E CONTROLLERS** ⚠️
+⚠️ **CAUTION: Requires modification by soldering connections to use UART for flashing this firmware** ⚠️
 
 ---
 
@@ -26,11 +26,12 @@ Choose:
 
 ## 🔧 Hardware Requirements
 
-- **SP530E LED Controller** with ESP32-C3 hardware modification
-- **Physical modifications completed** including:
-  - ESP32-C3 chip replacement
-  - Supporting circuitry modifications
-  - Proper GPIO routing
+- **Stock SP530E LED Controller** (ESP32-C3 based)
+- **UART access via soldering** for initial firmware flashing
+- **Required modifications**:
+  - Solder connections to UART pins (TX, RX, GND, 3.3V)
+  - Access to GPIO0 for boot mode (optional for easier flashing)
+  - No chip replacement needed - uses stock ESP32-C3
 
 ## 📋 Features
 
@@ -69,9 +70,18 @@ Choose:
 # Install esptool if not already installed
 pip install esptool
 
-# Flash the firmware (replace with actual filename)
+# Put SP530E in download mode (connect GPIO0 to GND during power-on)
+# Flash the firmware via UART (replace COM_PORT with your UART adapter port)
 esptool.py --chip esp32c3 --port COM_PORT write_flash 0x0000 WLED_SP530E_*.bin
 ```
+
+### UART Wiring for SP530E
+You need to solder wires to these points on the SP530E board:
+- **TX** → UART RX
+- **RX** → UART TX  
+- **GND** → UART GND
+- **3.3V** → UART VCC (or use external 3.3V supply)
+- **GPIO0** → GND (for download mode, release after flashing starts)
 
 ### Using ESP Flash Download Tool (GUI)
 1. Download [ESP Flash Download Tool](https://www.espressif.com/en/support/download/other-tools)
