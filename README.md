@@ -85,8 +85,9 @@ You need to solder wires to these points on the SP530E board:
 <img src="https://github.com/johnvoipguy/wled-sp530e-mods/blob/sp530e-mods/images/Front_lights.jpg" width="285" height="245">  <img src="https://github.com/johnvoipguy/wled-sp530e-mods/blob/sp530e-mods/images/back_no_wiring.jpg" width="324" height="324">
 
 <img src="https://github.com/johnvoipguy/wled-sp530e-mods/blob/sp530e-mods/images/back_wiring.jpg" width="250" height="250"> <img src="https://github.com/johnvoipguy/wled-sp530e-mods/blob/sp530e-mods/images/Back_wiring_2.jpg" width="250" height="250">
+ <img src="https://github.com/johnvoipguy/wled-sp530e-mods/blob/sp530e-mods/images/uart_connection.jpg" width="250" height="250">
  
-  **You'll know you did correctly, if after connecting power, and removing GPIO9 from GRND if there are no lights on the front**
+**You'll know you did correctly, if after connecting power and removing GPIO9 from GRND if there are no lights on the front**
   
 <img src="https://github.com/johnvoipguy/wled-sp530e-mods/blob/sp530e-mods/images/HA_wled_dash_1.png" width="324" height="324">
 
