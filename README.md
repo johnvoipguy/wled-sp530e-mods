@@ -80,7 +80,7 @@ You need to solder wires to these points on the SP530E board:
 - **RX** → UART TX  
 - **GND** → UART GND
 - **3.3V** → UART VCC (or use external 3.3V supply)
-- **GPIO9** → GND during power up (to enable access to bootloader for flashing)
+- $\color{blue}{GPIO9 → GND }$ **During power up!** (to enable access to bootloader for flashing)
 
 ### Prerequisites
 - **ESPTool** or **ESP Flash Download Tool**
