@@ -94,14 +94,6 @@ pip install esptool
 esptool.py --chip esp32c3 --port COM_PORT write_flash 0x0000 WLED_SP530E_*.bin
 ```
 
-### UART Wiring for SP530E
-You need to solder wires to these points on the SP530E board:
-- **TX** → UART RX
-- **RX** → UART TX  
-- **GND** → UART GND
-- **3.3V** → UART VCC (or use external 3.3V supply)
-- **GPIO9** → GND during power up (to enable access to bootloader for flashing)
-
 ### Using ESP Flash Download Tool (GUI)
 1. Download [ESP Flash Download Tool](https://www.espressif.com/en/support/download/other-tools)
 2. Select ESP32-C3
