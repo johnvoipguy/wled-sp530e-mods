@@ -11,14 +11,6 @@ on:
       - 'include/**'
       - 'tools/**'
       - '.github/workflows/build-and-release.yml'
-    paths-ignore:
-      - '**/*.md'
-      - 'docs/**'
-      - 'images/**'
-      - 'node_modules/**'
-      - '.vscode/**'
-      - '.devcontainer/**'
-      - 'test/**'
   workflow_dispatch:
 
 jobs:
