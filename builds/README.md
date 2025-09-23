@@ -19,23 +19,17 @@ This directory contains **ready-to-flash firmware** for SP530E controllers. No h
 
 ## 📋 What Do I Need?
 
-### First Time Setup (New SP530E)
-**Download**: `WLED_SP530E_Full_Latest.bin`
-**Flash to**: 0x0000 via UART
-**Size**: ~1.6MB
+### 🔌 First Time Setup (New SP530E)
+**Download**: `WLED_SP530E_Full_Latest.bin` (1.6MB)
+**Flash Command**:
+```bash
+esptool.py --chip esp32c3 --port COM3 --baud 460800 write_flash 0x0000 WLED_SP530E_Full_Latest.bin
+```
+*(Replace COM3 with your serial port)*
 
-### Updating Existing SP530E  
-**Download**: `WLED_SP530E_App_Latest.bin`
-**Upload via**: WLED web interface (Settings → Update)
-**Size**: ~1.2MB
-
----
-
-## 🏷️ Version History
-
-| Version | Date | Full Firmware | App Only | Notes |
-|---------|------|---------------|----------|-------|
-| v1.0.0 | Coming Soon | [Download](./v1.0.0/WLED_SP530E_Full_v1.0.0.bin) | [Download](./v1.0.0/WLED_SP530E_App_v1.0.0.bin) | Initial release |
+### 🔄 Updating Existing SP530E  
+**Download**: `WLED_SP530E_App_Latest.bin` (1.6MB)
+**Upload via**: WLED web interface → Settings → Security & Updates → Manual OTA
 
 ---
 

@@ -103,9 +103,18 @@ jobs:
             echo "FILES:" >> "builds/latest/BUILD_INFO.txt"
             ls -lh builds/latest/ >> "builds/latest/BUILD_INFO.txt"
             echo "" >> "builds/latest/BUILD_INFO.txt"
-            echo "USAGE:" >> "builds/latest/BUILD_INFO.txt"
-            echo "- First flash: Use WLED_SP530E_Full_Latest.bin at 0x0000" >> "builds/latest/BUILD_INFO.txt"
-            echo "- OTA updates: Use WLED_SP530E_App_Latest.bin via web interface" >> "builds/latest/BUILD_INFO.txt"
+            echo "FLASHING INSTRUCTIONS:" >> "builds/latest/BUILD_INFO.txt"
+            echo "======================" >> "builds/latest/BUILD_INFO.txt"
+            echo "" >> "builds/latest/BUILD_INFO.txt"
+            echo "🔌 UART Flashing (First Time Setup):" >> "builds/latest/BUILD_INFO.txt"
+            echo "esptool.py --chip esp32c3 --port COM3 --baud 460800 write_flash 0x0000 WLED_SP530E_Full_Latest.bin" >> "builds/latest/BUILD_INFO.txt"
+            echo "" >> "builds/latest/BUILD_INFO.txt"
+            echo "📦 PlatformIO Flashing:" >> "builds/latest/BUILD_INFO.txt"
+            echo "pio run -e sp530e -t upload" >> "builds/latest/BUILD_INFO.txt"
+            echo "" >> "builds/latest/BUILD_INFO.txt"
+            echo "🔄 OTA Updates (Existing Installation):" >> "builds/latest/BUILD_INFO.txt"
+            echo "- Upload WLED_SP530E_App_Latest.bin via WLED web interface" >> "builds/latest/BUILD_INFO.txt"
+            echo "- Go to Settings → Security & Updates → Manual OTA" >> "builds/latest/BUILD_INFO.txt"
           
           else
             echo "❌ No firmware.bin found in build directory"
@@ -125,3 +134,41 @@ jobs:
           git push
           echo "✅ Binaries updated in repository!"
         fi
+
+    - name: Create GitHub Release
+      if: github.ref == 'refs/heads/sp530e-mods'
+      run: |
+        # Create release tag and GitHub release
+        RELEASE_TAG="sp530e-v$(date +%Y%m%d-%H%M%S)"
+        RELEASE_NAME="SP530E WLED Firmware - $(date +'%Y-%m-%d %H:%M')"
+        
+        echo "Creating release: $RELEASE_TAG"
+        
+        # Create release with binaries
+        gh release create "$RELEASE_TAG" \
+          "builds/latest/WLED_SP530E_Full_Latest.bin#SP530E Full Firmware (UART Flash)" \
+          "builds/latest/WLED_SP530E_App_Latest.bin#SP530E App Only (OTA Update)" \
+          "builds/latest/BUILD_INFO.txt#Build Information & Instructions" \
+          --title "$RELEASE_NAME" \
+          --notes "**SP530E WLED Firmware Build**
+
+        🎯 **Optimized for SP530E Controllers** - ESP32-C3 with audio reactive support
+
+        ## 📦 Files Included:
+        - **WLED_SP530E_Full_Latest.bin** - Complete firmware for UART flashing (1.6MB)
+        - **WLED_SP530E_App_Latest.bin** - App-only for OTA updates (1.6MB)  
+        - **BUILD_INFO.txt** - Detailed flashing instructions
+
+        ## 🔌 Quick Flash:
+        \`\`\`bash
+        esptool.py --chip esp32c3 --port COM3 --baud 460800 write_flash 0x0000 WLED_SP530E_Full_Latest.bin
+        \`\`\`
+
+        ## 🔄 OTA Update:
+        Upload **WLED_SP530E_App_Latest.bin** via WLED web interface
+
+        **Built from commit:** ${GITHUB_SHA:0:7}
+        **Build time:** $(date)" \
+          --latest
+      env:
+        GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
