@@ -1,8 +1,4 @@
-# 🎯 WLED for SP530E Controllers (ESP32-C3 Modified Hardware)
-
-[![Build SP530E Binaries](https://github.com/johnvoipguy/wled-sp530e-mods/actions/workflows/build-sp530e.yml/badge.svg)](https://github.com/johnvoipguy/wled-sp530e-mods/actions/workflows/build-sp530e.yml)
-
-## 🚨 **WLED for SP530E Controllers** 🚨
+# 🎯 WLED for SP530E Controllers (With ESP32-C3 SoC)
 
 **This repository contains WLED modifications specifically optimized for SP530E LED controllers with ESP32-C3 chips.** 
 
@@ -22,10 +18,6 @@
 
 📦 **[All builds and versions →](./builds/)**
 
-## ⚠️ Important Notice
-
-Here are some brief instructions for soldering the connections required to connect to a USB UART. I will add the pictures later.
-
 ## 🔧 Hardware Requirements
 
 - **Stock SP530E LED Controller** (ESP32-C3 based)
@@ -41,6 +33,7 @@ Here are some brief instructions for soldering the connections required to conne
 - **Boot Status LED**: Visual indication of boot process and system status
 - **WiFi Status LED**: Real-time WiFi connection status indicator
 - **Audio Reactive**: Enhanced audio processing for ESP32-C3
+- **PWM RGBW**
 
 ### ESP32-C3 Optimizations
 - **4MB Flash Support**: Optimized memory layout for ESP32-C3
@@ -80,20 +73,46 @@ You need to solder wires to these points on the SP530E board:
 - **RX** → UART TX  
 - **GND** → UART GND
 - **3.3V** → UART VCC (or use external 3.3V supply)
-- **GPIO9** → GND during power up (to enable access to bootloader for flashing)
+- When performing a firmware upload do not connect the device to AC but use the power supply provided by your (FTDI type) serial interface.
+- $\color{blue}{GPIO9 → GND }$
+  
+<img src="https://github.com/johnvoipguy/wled-sp530e-mods/blob/sp530e-mods/images/Front_lights.jpg" width="285" height="245">  <img src="https://github.com/johnvoipguy/wled-sp530e-mods/blob/sp530e-mods/images/back_no_wiring.jpg" width="324" height="324">
 
+**Put the device in firmware upload mode by $\color{blue}{grounding \space pin \space GPIO9}$ while applying power.**
+
+<img src="https://github.com/johnvoipguy/wled-sp530e-mods/blob/sp530e-mods/images/back_wiring.jpg" width="250" height="250"> <img src="https://github.com/johnvoipguy/wled-sp530e-mods/blob/sp530e-mods/images/Back_wiring_2.jpg" width="250" height="250">
+ <img src="https://github.com/johnvoipguy/wled-sp530e-mods/blob/sp530e-mods/images/uart_connection.jpg" width="250" height="250">
+ 
+**You'll know you did correctly, if after applying power and removing GPIO9 from GRND if there are no lights on the front**
+You can test connectivity by running 
+
+```bash
+esptool.py chip-id
+```
+If chip-id doesn't work, you might try different bauds -b 460800 or -b 115200.
+
+Then copy original flash
+```bash
+esptool -p PORT -b 460800 read-flash 0 ALL SP530E-Orig.bin
+```
+** Optional **
+```bash
+esptool -p PORT erase-flash
+```
 ### Prerequisites
 - **ESPTool** or **ESP Flash Download Tool**
 - **USB UART adapter** connected to SP530E as shown above
 
 ### Using ESPTool (Command Line)
+- If you don't have or don't want to use Python you can find an ESPTool for Windows https://github.com/espressif/esptool/releases -> https://github.com/espressif/esptool/releases/download/v5.1.0/esptool-v5.1.0-windows-amd64.zip. 
+- **USB UART adapter** connected to SP530E as shown above
 ```bash
 # Install esptool if not already installed
 pip install esptool
 
 # Put SP530E in download mode (connect GPIO0 to GND during power-on)
 # Flash the firmware via UART (replace COM_PORT with your UART adapter port)
-esptool.py --chip esp32c3 --port COM_PORT write_flash 0x0000 WLED_SP530E_*.bin
+esptool.py -b 460800 --chip esp32c3 --port COM_PORT write_flash 0x0000 WLED_SP530E_*.bin
 ```
 
 ### Using ESP Flash Download Tool (GUI)
