@@ -37,9 +37,17 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install --upgrade platformio esptool
-
+        echo "Installing Node.js 20 next....."
+        
+    - name: Set up Node.js 20
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+          
     - name: Install Node.js dependencies
-      run: npm ci
+      run: |
+        npm ci     
+        echo " installed npm CI"
       
     - name: Build SP530E firmware
       run: |
@@ -50,7 +58,7 @@ jobs:
         pio run -e sp530e --verbose
         echo "Build completed. Checking what was built:"
         ls -la .pio/build/
-        
+      
     - name: Prepare user-friendly binaries
       run: |
         BUILD_DIR=".pio/build/sp530e"
