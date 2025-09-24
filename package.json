@@ -30,8 +30,5 @@
   },
   "engines": {
     "node": ">=20.0.0"
-  },
-  "devDependencies": {
-    "inliner": "^1.13.1"
   }
 }
