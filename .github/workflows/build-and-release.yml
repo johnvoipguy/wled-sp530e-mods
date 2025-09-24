@@ -46,6 +46,14 @@ jobs:
         echo "Build completed. Checking what was built:"
         ls -la .pio/build/
         
+    - name: Set up Node.js 20
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - name: Install Node.js dependencies
+      run: npm ci    
+      
     - name: Prepare user-friendly binaries
       run: |
         BUILD_DIR=".pio/build/sp530e"
