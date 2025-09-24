@@ -93,9 +93,12 @@ If chip-id doesn't work, you might try different bauds -b 460800 or -b 115200.
 
 Then copy original flash
 ```bash
-esptool -p PORT -b 460800 read-flash 0 ALL ESP530E-Orig.bin
+esptool -p PORT -b 460800 read-flash 0 ALL SP530E-Orig.bin
 ```
-
+** Optional **
+```bash
+esptool -p PORT erase-flash
+```
 ### Prerequisites
 - **ESPTool** or **ESP Flash Download Tool**
 - **USB UART adapter** connected to SP530E as shown above
