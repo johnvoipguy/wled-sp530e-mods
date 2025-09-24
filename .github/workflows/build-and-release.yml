@@ -2,7 +2,7 @@ name: Build and Release SP530E
 
 on:
   push:
-    branches: [ sp530e-mods ]
+    branches: [ main, sp530e-mods ]
     paths:
       - 'platformio.ini'
       - 'wled00/**'
