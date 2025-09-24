@@ -15,8 +15,17 @@
 #endif
 #ifndef WLED_DISABLE_PXMAGIC
   #include "html_pxmagic.h"
+  // Ensure PAGE_pxmagic_length is declared
+  #ifndef PAGE_pxmagic_length
+  extern const uint16_t PAGE_pxmagic_length;
+  #endif
 #endif
 #include "html_cpal.h"
+
+// Ensure PAGE_index_length is declared
+#ifndef PAGE_index_length
+extern const uint16_t PAGE_index_length;
+#endif
 
 // define flash strings once (saves flash memory)
 static const char s_redirecting[] PROGMEM = "Redirecting...";
