@@ -48,6 +48,8 @@ jobs:
       run: |
         npm ci     
         echo " installed npm CI"
+        npm run build
+        echo " built web files"
       
     - name: Build SP530E firmware
       run: |
