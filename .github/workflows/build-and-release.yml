@@ -57,7 +57,7 @@ jobs:
         echo "Available environments:"
         pio project config --json-output | grep -E "env:|sp530e"
         echo "Building only sp530e environment:"
-        pio run -e sp530e --verbose
+        pio run -e sp530e
         echo "Build completed. Checking what was built:"
         ls -la .pio/build/
       
