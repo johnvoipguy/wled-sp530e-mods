@@ -484,7 +484,7 @@ void initServer()
   server.on("/", HTTP_GET, [](AsyncWebServerRequest *request) {
     if (captivePortal(request)) return;
     if (!showWelcomePage || request->hasArg(F("sliders"))) {
-      handleStaticContent(request, F("/index.htm"), 200, FPSTR(CONTENT_TYPE_HTML), PAGE_index, PAGE_index_length);
+      handleStaticContent(request, F("/index.htm"), 200, FPSTR(CONTENT_TYPE_HTML), PAGE_index, PAGE_index_L);
     } else {
       serveSettings(request);
     }
@@ -494,21 +494,21 @@ void initServer()
   #ifdef WLED_ENABLE_PIXART
   static const char _pixart_htm[] PROGMEM = "/pixart.htm";
   server.on(_pixart_htm, HTTP_GET, [](AsyncWebServerRequest *request) {
-    handleStaticContent(request, FPSTR(_pixart_htm), 200, FPSTR(CONTENT_TYPE_HTML), PAGE_pixart, PAGE_pixart_length);
+    handleStaticContent(request, FPSTR(_pixart_htm), 200, FPSTR(CONTENT_TYPE_HTML), PAGE_pixart, PAGE_pixart_L);
   });
   #endif
 
   #ifndef WLED_DISABLE_PXMAGIC
   static const char _pxmagic_htm[] PROGMEM = "/pxmagic.htm";
   server.on(_pxmagic_htm, HTTP_GET, [](AsyncWebServerRequest *request) {
-    handleStaticContent(request, FPSTR(_pxmagic_htm), 200, FPSTR(CONTENT_TYPE_HTML), PAGE_pxmagic, PAGE_pxmagic_length);
+    handleStaticContent(request, FPSTR(_pxmagic_htm), 200, FPSTR(CONTENT_TYPE_HTML), PAGE_pxmagic, PAGE_pxmagic_L);
   });
   #endif
 #endif
 
   static const char _cpal_htm[] PROGMEM = "/cpal.htm";
   server.on(_cpal_htm, HTTP_GET, [](AsyncWebServerRequest *request) {
-    handleStaticContent(request, FPSTR(_cpal_htm), 200, FPSTR(CONTENT_TYPE_HTML), PAGE_cpal, PAGE_cpal_length);
+    handleStaticContent(request, FPSTR(_cpal_htm), 200, FPSTR(CONTENT_TYPE_HTML), PAGE_cpal, PAGE_cpal_L);
   });
 
 #ifdef WLED_ENABLE_WEBSOCKETS
