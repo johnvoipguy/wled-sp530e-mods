@@ -7,7 +7,7 @@
 ---
 
 ## 📥 **Quick Download**
-
+⚠️ **WRNING!!!!: v0.16.0 Requires flashing firmware via UART ONLY!! You cannot OTA to this version! remember to use --secure after write_flash ** ⚠️
 **Need firmware for your modified SP530E?** 
 
 👉 **[📁 Easy Download - builds/latest/](./builds/latest/)** 👈
@@ -112,7 +112,7 @@ pip install esptool
 
 # Put SP530E in download mode (connect GPIO0 to GND during power-on)
 # Flash the firmware via UART (replace COM_PORT with your UART adapter port)
-esptool.py -b 460800 --chip esp32c3 --port COM_PORT write_flash 0x0000 WLED_SP530E_*.bin
+esptool.py -b 460800 --chip esp32c3 --port COM_PORT write_flash --secure 0x0000 WLED_SP530E_*.bin
 ```
 
 ### Using ESP Flash Download Tool (GUI)
