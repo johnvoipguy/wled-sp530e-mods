@@ -23,7 +23,7 @@ This directory contains **ready-to-flash firmware** for SP530E controllers. No h
 **Download**: `WLED_SP530E_Full_Latest.bin` (1.6MB)
 **Flash Command**:
 ```bash
-esptool.py --chip esp32c3 --port COM3 --baud 460800 write_flash 0x0000 WLED_SP530E_Full_Latest.bin
+esptool.py --chip esp32c3 --port COM3 --baud 460800 write_flash --secure 0x0000 WLED_SP530E_Full_Latest.bin
 ```
 *(Replace COM3 with your serial port)*
 
@@ -38,10 +38,10 @@ esptool.py --chip esp32c3 --port COM3 --baud 460800 write_flash 0x0000 WLED_SP53
 ### ESP Tool (Command Line)
 ```bash
 # Full firmware (first time)
-esptool.py --chip esp32c3 --port COM3 write_flash 0x0000 WLED_SP530E_Full_Latest.bin
+esptool.py --chip esp32c3 --port COM3 write_flash --secure 0x0000 WLED_SP530E_Full_Latest.bin
 
 # Individual components (advanced)
-esptool.py --chip esp32c3 --port COM3 write_flash \
+esptool.py --chip esp32c3 --port COM3 write_flash --secure \
   0x0000 Bootloader.bin \
   0x8000 Partitions.bin \
   0x10000 App.bin
