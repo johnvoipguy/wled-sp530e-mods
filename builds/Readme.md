@@ -1,5 +1,3 @@
-# Build Output
-
 # SP530E Firmware Builds v0.16.0-alpha
 
 This directory contains **ready-to-flash firmware** for SP530E controllers. No hunting through artifacts!
